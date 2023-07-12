@@ -43,7 +43,7 @@ if(chooseToss == selectToss){
 
 }
 
-if(person = "x" || computer == "o"){
+if(person == "x" || computer == "o"){
     console.log("Your letter is X")
     console.log("computer letter is O")
 } else {
