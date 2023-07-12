@@ -49,7 +49,7 @@ if(person == "x" || computer == "o"){
 }
 
 //tictactoe board
-var board = ["","","","","","","","",""]
+var board = [" "," "," "," "," "," "," "," "," "]
 console.log(
     board[0] + " | " + board[1] + " | " + board[2] + " | " + "\n" + 
     board[3] + " | " + board[4] + " | " + board[5] + " | " + "\n" +
