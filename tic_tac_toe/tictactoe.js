@@ -1,16 +1,14 @@
 console.log("Welcome To TicTacToe Game")
 
 const prompt=require("prompt-sync")({sigint:true});
-var head = 0; tail = 1
 var chooseToss = null
 
 while(chooseToss == null){
-    chooseToss = prompt("Enter the Coin side Head or Tail: ")
+    chooseToss = prompt("Enter the Coin side Head:1 or Tail:0: ")
     if(chooseToss > 1 || chooseToss < 0 || chooseToss == null){
         console.log("You've chosen wrong")
         chooseToss = null
     }
-
 }
 var selectToss = Math.floor(Math.random()*2)
 
@@ -37,7 +35,6 @@ if(chooseToss == selectToss){
     } else {
         computer = "o"
     }
-
 }
 
 if(person = "x" || computer == "o"){
@@ -47,3 +44,4 @@ if(person = "x" || computer == "o"){
     console.log("Your letter is O")
     console.log("computer letter is X")
 }
+
