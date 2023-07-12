@@ -1,6 +1,8 @@
+//welcome page
 console.log("Welcome To TicTacToe Game")
 
 const prompt=require("prompt-sync")({sigint:true});
+//selecting toss
 var chooseToss = null
 
 while(chooseToss == null){
@@ -12,6 +14,7 @@ while(chooseToss == null){
 }
 var selectToss = Math.floor(Math.random()*2)
 
+//selecting letter
 var person = null
 var computer = null
 if(chooseToss == selectToss){
@@ -37,7 +40,7 @@ if(chooseToss == selectToss){
     }
 }
 
-if(person = "x" || computer == "o"){
+if(person == "x" || computer == "o"){
     console.log("Your letter is X")
     console.log("computer letter is O")
 } else {
@@ -45,3 +48,10 @@ if(person = "x" || computer == "o"){
     console.log("computer letter is X")
 }
 
+//tictactoe board
+var board = ["","","","","","","","",""]
+console.log(
+    board[0] + " | " + board[1] + " | " + board[2] + " | " + "\n" + 
+    board[3] + " | " + board[4] + " | " + board[5] + " | " + "\n" +
+    board[6] + " | " + board[7] + " | " + board[8] + " | " 
+)
