@@ -17,10 +17,11 @@ var selectToss = Math.floor(Math.random()*2)
 //selecting letter
 var person = null
 var computer = null
-var chance = null
+var chance = -1
 if(chooseToss == selectToss){
     console.log("You Win")
     console.log("Your Turn")
+    chance = 1
     while(person == null){
         person = prompt("what letter would you like to choose 'x' or 'o': ")
         if(person == "o" || person == "x"){
@@ -69,33 +70,42 @@ var pairs = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]]
 var personOcc = []
 var comOcc = []
 
-
-while(board.includes("_")){
-    var x = prompt("Enter your area: ")
-    if(chance == 0){
+//Win or move or tie condition
+const playing = () =>{
+    var x = Number(prompt("Enter Your Area: "))
+    if(board[x] == "_" && chance == 1){
         board[x] = computer
         comOcc.push(x)
-        chance = 1
-    } else {
+        chance = 0
+    }
+    else if(board[x] == "_" && chance == 0){
         board[x] = person
         personOcc.push(x)
-        chance = 0
+        chance = 1
     }
     console.log(
         " | " + board[0] + " | " + board[1] + " | " + board[2] + " | " + "\n" + 
         " | " + board[3] + " | " + board[4] + " | " + board[5] + " | " + "\n" +
         " | " + board[6] + " | " + board[7] + " | " + board[8] + " | " 
     )
-    console.log(personOcc,comOcc)
-    for(let i of pairs){
-        if(i.every(x => personOcc.includes(x))){
-            console.log("You Win")
-            break
-        }
-        if(i.every(x => comOcc.includes(x))){
-            console.log("Computer Win")
-            break
+    
+    if(personOcc.length > 2 || comOcc.length > 2){
+        for(let i of pairs){
+            if(i.every((x) => personOcc.includes(x))){
+                chance = 2
+                return "You Win"
+            }
+            if(i.every(x => comOcc.includes(x))){
+                chance = 2
+                return "Computer Win"
+            }
         }
     }
-    
+}
+
+while(board.includes("_") && chance != 2){
+    console.log(playing(person,computer,board))
+}
+if(!board.includes("_")){
+    console.log("Tie")
 }
