@@ -63,7 +63,7 @@ var board = ["_","_","_","_","_","_","_","_","_"]
 console.log(
     " | " + board[0] + " | " + board[1] + " | " + board[2] + " | " + "\n" + 
     " | " + board[3] + " | " + board[4] + " | " + board[5] + " | " + "\n" +
-    " | " + board[6] + " | " + board[7] + " | " + board[8] + " | " 
+    " | " + board[6] + " | " + board[7] + " | " + board[8] + " | " + "\n"
 )
 
 var pairs = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]]
@@ -72,40 +72,67 @@ var comOcc = []
 
 //Win or move or tie condition
 const playing = () =>{
-    var x = Number(prompt("Enter Your Area: "))
-    if(board[x] == "_" && chance == 1){
-        board[x] = computer
-        comOcc.push(x)
-        chance = 0
+    if(chance == 0){
+        let x = null;
+        // let x = Math.floor(Math.random()*9)
+        if(personOcc.length > 1){
+            for(let i=0; i<pairs.length; i++){
+                let count = 0;
+                for(let j=0; j<personOcc.length; j++){
+                    if(pairs[i].includes(personOcc[j])){
+                        count++
+                    }
+                }
+                if(count == 2){
+                    var value = pairs[i].filter(x => !personOcc.includes(x))[0];
+                    if(!personOcc.includes(value) && !comOcc.includes(value)){
+                        x = value
+                    }
+                }
+            }
+        }
+        if(personOcc.length < 2 || x == null){
+            x = Math.floor(Math.random()*9)
+        }
+        if(board[x] == "_"){
+            board[x] = computer
+            comOcc.push(x)
+            chance = 1
+        }
     }
-    else if(board[x] == "_" && chance == 0){
-        board[x] = person
-        personOcc.push(x)
-        chance = 1
+    else if(chance == 1){
+        let x = Number(prompt("Enter Your Area: "))
+        if(board[x] == "_"){
+            board[x] = person
+            personOcc.push(x)
+            chance = 0
+        }
     }
     console.log(
         " | " + board[0] + " | " + board[1] + " | " + board[2] + " | " + "\n" + 
         " | " + board[3] + " | " + board[4] + " | " + board[5] + " | " + "\n" +
-        " | " + board[6] + " | " + board[7] + " | " + board[8] + " | " 
+        " | " + board[6] + " | " + board[7] + " | " + board[8] + " | " + "\n"
+        
     )
+    console.log(personOcc,comOcc)
     
     if(personOcc.length > 2 || comOcc.length > 2){
         for(let i of pairs){
-            if(i.every((x) => personOcc.includes(x))){
+            if(i.every(x => personOcc.includes(x))){
                 chance = 2
-                return "You Win"
+                console.log("You Win")
             }
             if(i.every(x => comOcc.includes(x))){
                 chance = 2
-                return "Computer Win"
+                console.log("Computer Win")
             }
         }
     }
 }
 
 while(board.includes("_") && chance != 2){
-    console.log(playing(person,computer,board))
+    playing(person,computer,board)
 }
-if(!board.includes("_")){
+if(!board.includes("_") && chance != 2){
     console.log("Tie")
 }
