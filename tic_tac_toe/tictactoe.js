@@ -74,8 +74,26 @@ var comOcc = []
 const playing = () =>{
     if(chance == 0){
         let x = null;
-        // let x = Math.floor(Math.random()*9)
-        if(personOcc.length > 1){
+        if(personOcc.length<2){
+            x = (Math.floor(Math.random()*4)+1)*2
+        }
+        if(personOcc.length > 1 && x == null){
+            for(let i=0; i<pairs.length; i++){
+                let count = 0;
+                for(let j=0; j<comOcc.length; j++){
+                    if(pairs[i].includes(comOcc[j])){
+                        count++
+                    }
+                }
+                if(count == 2){
+                    var value = pairs[i].filter(x => !comOcc.includes(x))[0];
+                    if(!personOcc.includes(value) && !comOcc.includes(value)){
+                        x = value
+                    }
+                }
+            }
+        }
+        if(personOcc.length > 1 && x == null){
             for(let i=0; i<pairs.length; i++){
                 let count = 0;
                 for(let j=0; j<personOcc.length; j++){
@@ -91,7 +109,7 @@ const playing = () =>{
                 }
             }
         }
-        if(personOcc.length < 2 || x == null){
+        if(x == null){
             x = Math.floor(Math.random()*9)
         }
         if(board[x] == "_"){
