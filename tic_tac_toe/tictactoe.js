@@ -75,7 +75,7 @@ const playing = () =>{
     if(chance == 0){
         let x = null;
         if(personOcc.length<2){
-            x = (Math.floor(Math.random()*4)+1)*2
+            x = (Math.floor(Math.random()*5))*2
         }
         if(personOcc.length > 1 && x == null){
             for(let i=0; i<pairs.length; i++){
